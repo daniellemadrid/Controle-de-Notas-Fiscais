@@ -35,6 +35,18 @@ public class ItemNotaFiscal {
         return proximo;
     }
 
+    public boolean temNumero(String numero) {
+        return itemNumero.equals(numero);
+    }
+
+    public ItemNotaFiscal getProximoItem() {
+        return null;
+    }
+
+    public Object getNumero() {
+        return null;
+    }
+
     @Override
     public String toString() {
         return "ItemNotaFiscal{" +

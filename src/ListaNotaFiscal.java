@@ -16,6 +16,17 @@ public class ListaNotaFiscal {
         fim.setAnterior(nf);
         quantidade++;
     }
+    public NotaFiscal buscarNotaFiscal(String numeroNF) {
+        NotaFiscal current = inicio.getProximo();
+        while (current != fim) {
+            if (current.getNumero().equals(numeroNF)) {
+                return current;
+            }
+            current = current.getProximo();
+        }
+        return null;
+    }
+
 
 /* Consultar dados de um NF
 a. O usuário informa o número da NF e a aplicação mostra os itens da nota

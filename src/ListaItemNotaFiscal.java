@@ -14,6 +14,29 @@ public class ListaItemNotaFiscal {
         }
         quantidade++;
     }
+
+//    public String encontrarNotaPorNumero(String numero) {
+//        ItemNotaFiscal current = inicio;
+//        while (current != null) {
+//            if (current.temNumero(numero)) {
+//                return current.toString();
+//            }
+//            current = current.proximo;
+//        }
+//        return null;
+//    }
+
+    public String encontrarNotaPorNumero(String numero) {
+        ItemNotaFiscal current = inicio.getProximo();
+        while (current != fim) {
+            if (current.getNumero().equals(numero)) {
+                return current.toString();
+            }
+            current = current.getProximo();
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         String s = "";
