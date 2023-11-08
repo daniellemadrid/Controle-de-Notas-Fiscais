@@ -89,38 +89,37 @@ public class ControleNotasFiscais {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // criar metodo que faz merge sort e chamar aqui para renderizar lista ordenada por numero de nota fiscal
-        listaNf.toString();
         Scanner sc = new Scanner(System.in);
         menu();
         int opcao = sc.nextInt();
-        while(true) {
-            switch(opcao) {
+        while (true) {
+            switch (opcao) {
                 case 0: {
                     sc.close();
-                    break;}
+                    break;
+                }
                 case 1: {
                     System.out.println("Insira o número da nota fiscal: ");
-                    listaNf.consultaNumeroNF(sc.nextInt());
+                    listaNf.consultaNumeroNF(sc.next());
                     break;
                 }
                 case 2: {
                     System.out.println("\nNota mais cara: ");
-                    // chamar o metodo consultaNotaMaisCara
+                    consultaNotaMaisCara(listaNf);
                     break;
                 }
                 case 3: {
                     System.out.println("\nNota mais barata: ");
-                    // chamar metodo consultaNotaMaisBarata
+                    consultaNotaMaisBarata(listaNf);
                     break;
                 }
                 case 4: {
                     System.out.println("\nNota com mais itens: ");
-                    // chamar metodo consultaNotaMaisItens
+                    consultaNotaMaisItens(listaNf);
                     break;
                 }
                 case 5: {
-                    System.out.println(listaNf.toString());
+                    listaNf.imprimirLista();
                     break;
                 }
             }
@@ -130,6 +129,74 @@ public class ControleNotasFiscais {
 
     }
 
+    private void consultaNotaMaisCara(ListaNotaFiscal lista) {
+        NotaFiscal atual = lista.getInicio().getProximo();
+        double maxValor = 0;
+        NotaFiscal notaMaisCara = null;
+        while (atual != lista.getFim()) {
+            double valorTotal = calcularValorTotalNota(atual);
+            if (valorTotal > maxValor) {
+                maxValor = valorTotal;
+                notaMaisCara = atual;
+            }
+            atual = atual.getProximo();
+        }
+        if (notaMaisCara != null) {
+            System.out.println("Nota fiscal mais cara: " + notaMaisCara.getNumero() + ", Valor total: " + maxValor);
+        } else {
+            System.out.println("Nenhuma nota fiscal encontrada.");
+        }
+    }
+
+    private double calcularValorTotalNota(NotaFiscal nota) {
+        ListaItemNotaFiscal itens = nota.getItens();
+        double valorTotal = 0;
+        ItemNotaFiscal atual = itens.getInicio();
+        while (atual != null) {
+            valorTotal += atual.getValorTotalItem();
+            atual = atual.proximo;
+        }
+        return valorTotal;
+    }
+
+    private void consultaNotaMaisBarata(ListaNotaFiscal lista) {
+        NotaFiscal atual = lista.getInicio().getProximo();
+        double minValor = Double.MAX_VALUE;
+        NotaFiscal notaMaisBarata = null;
+        while (atual != lista.getFim()) {
+            double valorTotal = calcularValorTotalNota(atual);
+            if (valorTotal < minValor) {
+                minValor = valorTotal;
+                notaMaisBarata = atual;
+            }
+            atual = atual.getProximo();
+        }
+        if (notaMaisBarata != null) {
+            System.out.println("Nota fiscal mais barata: " + notaMaisBarata.getNumero() + ", Valor total: " + minValor);
+        } else {
+            System.out.println("Nenhuma nota fiscal encontrada.");
+        }
+
+    }
+
+    private void consultaNotaMaisItens(ListaNotaFiscal lista) {
+        NotaFiscal atual = lista.getInicio().getProximo();
+        int maxItens = 0;
+        NotaFiscal notaMaisItens = null;
+        while (atual != lista.getFim()) {
+            int numItens = atual.getItens().getQuantidade();
+            if (numItens > maxItens) {
+                maxItens = numItens;
+                notaMaisItens = atual;
+            }
+            atual = atual.getProximo();
+        }
+        if (notaMaisItens != null) {
+            System.out.println("Nota fiscal com mais itens: " + notaMaisItens.getNumero() + ", Número de itens: " + maxItens);
+        } else {
+            System.out.println("Nenhuma nota fiscal encontrada.");
+        }
+    }
     private void menu() {
         System.out.println("Selecione a opcao desejada: ");
         System.out.println("[1] Consultar dados Nota Fiscal");
@@ -139,6 +206,5 @@ public class ControleNotasFiscais {
         System.out.println("[5] Exibir todas Notas Fiscais");
         System.out.println("[0] Sair");
     }
-
 
 }

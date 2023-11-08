@@ -91,4 +91,5 @@ public class NotaFiscal {
     public void setAnterior(NotaFiscal anterior) {
         this.anterior = anterior;
     }
+
 }
