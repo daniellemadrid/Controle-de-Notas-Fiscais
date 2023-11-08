@@ -5,13 +5,14 @@ public class ItemNotaFiscal {
     private double valorUnitario;
     public ItemNotaFiscal proximo;
 
-
-    public ItemNotaFiscal(String itemNumero, String descricao, int quantidade, double valorUnitario) {
+    public ItemNotaFiscal(String itemNumero, String descricao,
+                          int quantidade, double valorUnitario) {
         this.itemNumero = itemNumero;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
     }
+
     public double getValorTotalItem() {
         return quantidade * valorUnitario;
     }
@@ -19,6 +20,7 @@ public class ItemNotaFiscal {
     public String getItemNumero() {
         return itemNumero;
     }
+
     public String getDescricao() {
         return descricao;
     }
@@ -31,20 +33,12 @@ public class ItemNotaFiscal {
         return valorUnitario;
     }
 
-    public ItemNotaFiscal getProximo() {
-        return proximo;
-    }
-
-    public boolean temNumero(String numero) {
-        return itemNumero.equals(numero);
-    }
-
-    public ItemNotaFiscal getProximoItem() {
-        return null;
-    }
-
-    public Object getNumero() {
-        return null;
+    public void imprimirTodaLista() {
+        ItemNotaFiscal itemAtual = this;
+        while (itemAtual != null) {
+            System.out.println(itemAtual.toString());
+            itemAtual = itemAtual.proximo;
+        }
     }
 
     @Override

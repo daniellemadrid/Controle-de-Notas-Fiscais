@@ -3,17 +3,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 
-public class LeituraDeArquivos {
+public class LeitorArquivos {
     public void lerArquivo() throws IOException {
         String linha;
         String arquivo = "src/notas_fiscais_00100.csv";
-        BufferedReader leitor = new BufferedReader(new FileReader(arquivo));
-        try {
-            System.out.println(leitor.readLine());
+        try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
+            leitor.readLine();
             linha = leitor.readLine();
             String[] colunas = linha.split("[|]");
-            String notaAtual = colunas[0];
-            String notaAnterior = notaAtual;
+            String notaAnterior = colunas[0];
             NotaFiscal nf = new NotaFiscal();
             nf.setNumero(colunas[0]);
             nf.setData(Date.valueOf(colunas[1]));
@@ -22,8 +20,14 @@ public class LeituraDeArquivos {
             nf.setItens(items);
             while ((linha = leitor.readLine()) != null) {
                 colunas = linha.split("[|]");
-                notaAtual = colunas[0];
+                String notaAtual = colunas[0];
                 if (!notaAnterior.equals(notaAtual)) {
+                    System.out.println("Nota Fiscal: " + nf.getNumero());
+                    System.out.println("Data: " + nf.getData());
+                    System.out.println("Cliente: " + nf.getCliente());
+                    System.out.println("Itens da Nota Fiscal: ");
+                    System.out.println(nf.getItens().toString()); // Imprimir lista de itens
+                    System.out.println("-----------------------------------");
                     nf = new NotaFiscal();
                     nf.setNumero(colunas[0]);
                     nf.setData(Date.valueOf(colunas[1]));
@@ -38,13 +42,18 @@ public class LeituraDeArquivos {
                         Integer.parseInt(colunas[9]),
                         Double.parseDouble(colunas[10]));
                 items.adicionar(item);
-
-                // teste para ver se eles estao devidamente adicionados
-                // System.out.println("Item adicionado à NF " + nf.getNumero() + ": " + item);
             }
-        } catch (Exception e) {
+            System.out.println("Nota Fiscal: " + nf.getNumero());
+            System.out.println("Data: " + nf.getData());
+            System.out.println("Cliente: " + nf.getCliente());
+            System.out.println("Itens da Nota Fiscal: ");
+            System.out.println(nf.getItens().toString()); // Imprimir lista de itens
+            System.out.println("-----------------------------------");
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        // lista.imprimirLista();
     }
+
 }
+
+
