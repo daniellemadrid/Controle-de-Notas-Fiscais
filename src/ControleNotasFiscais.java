@@ -9,7 +9,7 @@ public class ControleNotasFiscais {
 
     public ControleNotasFiscais() {
         try {
-            leitor = new BufferedReader(new FileReader("src/notas_fiscais_00100.csv"));
+            leitor = new BufferedReader(new FileReader("src/notas_fiscais_01000.csv"));
         } catch (Exception e) {
             e.printStackTrace();
         }
