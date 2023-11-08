@@ -3,16 +3,17 @@ public class ListaItemNotaFiscal {
     private ItemNotaFiscal fim;
     private int quantidade;
 
-    public void adicionar(ItemNotaFiscal item) {
-        if (quantidade == 0) {
-            inicio = item;
-            fim = item;
-        } else {
-            fim.proximo = item;
-            fim = item;
+        public void adicionar(ItemNotaFiscal item) {
+            if (quantidade == 0) {
+                inicio = item;
+                fim = item;
+            } else {
+                fim.proximo = item;
+                fim = item;
+            }
+            quantidade++;
         }
-        quantidade++;
-    }
+
 
     public ItemNotaFiscal encontrarNotaPorNumero(String numero) {
         ItemNotaFiscal atual = inicio;
@@ -25,6 +26,24 @@ public class ListaItemNotaFiscal {
         return null;
     }
 
+    public void calcularTotalNotas() {
+        double totalNotas = 0;
+        ItemNotaFiscal notaAtual = this.inicio;
+
+        while (notaAtual != null) {
+            ItemNotaFiscal itemAtual = notaAtual;
+
+            while (itemAtual != null) {
+                totalNotas += itemAtual.getValorTotalItem();
+                itemAtual = itemAtual.proximo;
+            }
+
+            notaAtual = notaAtual.proximo;
+        }
+
+        System.out.println("Quantidade de notas carregadas: " + this.quantidade);
+        System.out.println("Valor total de todas as notas: " + totalNotas);
+    }
 
     @Override
     public String toString() {
@@ -39,5 +58,9 @@ public class ListaItemNotaFiscal {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public ItemNotaFiscal getInicio() {
+            return inicio;
     }
 }

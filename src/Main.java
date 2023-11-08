@@ -20,6 +20,7 @@ public class Main {
         int opcao;
 
         do {
+            lista.calcularTotalNotas();
             exibirOpcoesMenu();
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -79,19 +80,83 @@ public class Main {
     }
 
     private static void exibirMaiorValorNF(ListaItemNotaFiscal lista) {
-        System.out.println("Exibir número da NF de maior valor: ");
+        ItemNotaFiscal itemMaiorValor = null;
+        double maiorValor = 0;
+
+        ItemNotaFiscal notaAtual = lista.getInicio();
+        while (notaAtual != null) {
+            double valorTotalNota = 0;
+            ItemNotaFiscal itemAtual = notaAtual;
+            while (itemAtual != null) {
+                valorTotalNota += itemAtual.getValorTotalItem();
+                itemAtual = itemAtual.proximo;
+            }
+            if (valorTotalNota > maiorValor) {
+                maiorValor = valorTotalNota;
+                itemMaiorValor = notaAtual;
+            }
+            notaAtual = notaAtual.proximo;
+        }
+
+        if (itemMaiorValor != null) {
+            System.out.println("Número da NF de maior valor: " + itemMaiorValor.getItemNumero());
+        } else {
+            System.out.println("Nenhuma Nota Fiscal encontrada na lista.");
+        }
     }
 
-        private static void exibirMenorValorNF(ListaItemNotaFiscal lista) {
+
+    private static void exibirMenorValorNF(ListaItemNotaFiscal lista) {
         System.out.println("Exibir número da NF de menor valor: ");
+
+        double menorValor = Double.MAX_VALUE;
+        ItemNotaFiscal notaFiscalMenorValor = null;
+
+        ItemNotaFiscal notaAtual = lista.getInicio();
+        while (notaAtual != null) {
+            ItemNotaFiscal itemAtual = notaAtual.proximo;
+            while (itemAtual != null) {
+                double valorTotalItem = itemAtual.getValorTotalItem();
+                if (valorTotalItem < menorValor) {
+                    menorValor = valorTotalItem;
+                    notaFiscalMenorValor = itemAtual;
+                }
+                itemAtual = itemAtual.proximo;
+            }
+            notaAtual = notaAtual.proximo;
+        }
+
+        if (notaFiscalMenorValor != null) {
+            System.out.println("Número da Nota Fiscal com o Menor Valor: " + notaFiscalMenorValor.getItemNumero());
+        } else {
+            System.out.println("Nenhuma Nota Fiscal encontrada na lista.");
+        }
     }
 
     private static void exibirMaisItensNF(ListaItemNotaFiscal lista) {
         System.out.println("Exibir número da NF com mais itens: ");
+        NotaFiscal nfMaiorItens = null;
+        int maxItens = 0;
+
+        ItemNotaFiscal notaAtual = lista.getInicio();
+        while (notaAtual != null) {
+            if (notaAtual.getQuantidade() > maxItens) {
+                maxItens = notaAtual.getQuantidade();
+//                nfMaiorItens = notaAtual;
+            }
+            notaAtual = notaAtual.proximo;
+        }
+
+        if (nfMaiorItens != null) {
+            System.out.println("Número da Nota Fiscal com mais itens: " + nfMaiorItens.getNumero());
+        } else {
+            System.out.println("Nenhuma Nota Fiscal encontrada na lista.");
+        }
     }
 
     private static void listarTodasNF(ListaItemNotaFiscal lista) {
         System.out.println("Listar todas as NF: ");
+        System.out.println(lista.toString());
     }
 }
 

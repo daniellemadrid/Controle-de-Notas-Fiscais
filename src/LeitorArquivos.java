@@ -22,12 +22,6 @@ public class LeitorArquivos {
                 colunas = linha.split("[|]");
                 String notaAtual = colunas[0];
                 if (!notaAnterior.equals(notaAtual)) {
-                    System.out.println("Nota Fiscal: " + nf.getNumero());
-                    System.out.println("Data: " + nf.getData());
-                    System.out.println("Cliente: " + nf.getCliente());
-                    System.out.println("Itens da Nota Fiscal: ");
-                    System.out.println(nf.getItens().toString()); // Imprimir lista de itens
-                    System.out.println("-----------------------------------");
                     nf = new NotaFiscal();
                     nf.setNumero(colunas[0]);
                     nf.setData(Date.valueOf(colunas[1]));
@@ -43,12 +37,6 @@ public class LeitorArquivos {
                         Double.parseDouble(colunas[10]));
                 items.adicionar(item);
             }
-            System.out.println("Nota Fiscal: " + nf.getNumero());
-            System.out.println("Data: " + nf.getData());
-            System.out.println("Cliente: " + nf.getCliente());
-            System.out.println("Itens da Nota Fiscal: ");
-            System.out.println(nf.getItens().toString()); // Imprimir lista de itens
-            System.out.println("-----------------------------------");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,7 @@
+import java.util.Calendar;
+
 public class ItemNotaFiscal {
+    public ItemNotaFiscal anterior;
     private String itemNumero;
     private String descricao;
     private int quantidade;
@@ -33,14 +36,6 @@ public class ItemNotaFiscal {
         return valorUnitario;
     }
 
-    public void imprimirTodaLista() {
-        ItemNotaFiscal itemAtual = this;
-        while (itemAtual != null) {
-            System.out.println(itemAtual.toString());
-            itemAtual = itemAtual.proximo;
-        }
-    }
-
     @Override
     public String toString() {
         return "ItemNotaFiscal{" +
@@ -51,4 +46,5 @@ public class ItemNotaFiscal {
                 ", proximo=" + proximo +
                 '}';
     }
+
 }
