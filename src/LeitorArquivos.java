@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.sql.Date;
 
 public class LeitorArquivos {
-    public void lerArquivo() throws IOException {
+
+    public ListaItemNotaFiscal lerArquivo() throws IOException {
         String linha;
         String arquivo = "src/notas_fiscais_00100.csv";
+        ListaItemNotaFiscal lista = new ListaItemNotaFiscal();
         try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
-            leitor.readLine();
+            leitor.readLine(); // Ignora o cabeçalho
             linha = leitor.readLine();
             String[] colunas = linha.split("[|]");
             String notaAnterior = colunas[0];
@@ -18,6 +20,7 @@ public class LeitorArquivos {
             nf.setCliente(colunas[2]);
             ListaItemNotaFiscal items = new ListaItemNotaFiscal();
             nf.setItens(items);
+//            lista.adicionar(nf); // Adiciona a primeira nota fiscal à lista geral
             while ((linha = leitor.readLine()) != null) {
                 colunas = linha.split("[|]");
                 String notaAtual = colunas[0];
@@ -28,6 +31,7 @@ public class LeitorArquivos {
                     nf.setCliente(colunas[2]);
                     items = new ListaItemNotaFiscal();
                     nf.setItens(items);
+//                    lista.adicionar(nf);
                     notaAnterior = notaAtual;
                 }
                 ItemNotaFiscal item = new ItemNotaFiscal(
@@ -40,8 +44,6 @@ public class LeitorArquivos {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return lista;
     }
-
 }
-
-
