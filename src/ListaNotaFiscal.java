@@ -17,6 +17,7 @@ public class ListaNotaFiscal {
         fim.setAnterior(nf);
         quantidade++;
     }
+
     public void consultaNumeroNF(int notaFiscal) {}
 
     public NotaFiscal getInicio() {

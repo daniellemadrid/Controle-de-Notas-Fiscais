@@ -128,7 +128,6 @@ public class ControleNotasFiscais {
         }
 
     }
-
     private void consultaNotaMaisCara(ListaNotaFiscal lista) {
         NotaFiscal atual = lista.getInicio().getProximo();
         double maxValor = 0;
@@ -142,7 +141,7 @@ public class ControleNotasFiscais {
             atual = atual.getProximo();
         }
         if (notaMaisCara != null) {
-            System.out.println("Nota fiscal mais cara: " + notaMaisCara.getNumero() + ", Valor total: " + maxValor);
+            System.out.printf("Nota fiscal mais cara: %s, Valor total: %.2f\n", notaMaisCara.getNumero(), maxValor);
         } else {
             System.out.println("Nenhuma nota fiscal encontrada.");
         }
