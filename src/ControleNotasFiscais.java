@@ -89,13 +89,14 @@ public class ControleNotasFiscais {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Scanner sc = new Scanner(System.in);
+        int opcao;
+        do {
         menu();
-        int opcao = sc.nextInt();
-        while (true) {
+        Scanner sc = new Scanner(System.in);
+        opcao = sc.nextInt();
             switch (opcao) {
                 case 0: {
-                    sc.close();
+                    System.out.println("saindo...");
                     break;
                 }
                 case 1: {
@@ -122,10 +123,11 @@ public class ControleNotasFiscais {
                     listaNf.imprimirLista();
                     break;
                 }
+                default:
+                    System.out.println("Opção inválida, tente novamente.");
             }
-            menu();
-            opcao = sc.nextInt();
         }
+        while (opcao != 0);
 
     }
     private void consultaNotaMaisCara(ListaNotaFiscal lista) {

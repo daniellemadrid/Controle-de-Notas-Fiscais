@@ -11,14 +11,17 @@ public class ListaNotaFiscal {
     }
 
     public void adicionar(NotaFiscal nf) {
-        nf.setProximo(fim);
-        nf.setAnterior(fim.getAnterior());
-        fim.getAnterior().setProximo(nf);
-        fim.setAnterior(nf);
+        NotaFiscal atual = inicio.getProximo();
+        while (atual != fim && nf.getData().after(atual.getData())) {
+            atual = atual.getProximo();
+        }
+
+        nf.setProximo(atual);
+        nf.setAnterior(atual.getAnterior());
+        atual.getAnterior().setProximo(nf);
+        atual.setAnterior(nf);
         quantidade++;
     }
-
-    public void consultaNumeroNF(int notaFiscal) {}
 
     public NotaFiscal getInicio() {
         return inicio;
@@ -32,6 +35,10 @@ public class ListaNotaFiscal {
         NotaFiscal atual = inicio.getProximo();
         while (atual != fim) {
             System.out.println("Número: " + atual.getNumero() + ", Data: " + atual.getData() + ", Cliente: " + atual.getCliente());
+            System.out.println("CNPJ/CPF: " + atual.getCnpjCpf() + ", Endereço: " + atual.getEndereco() + ", Cidade: " + atual.getCidade() + ", Estado: " + atual.getEstado());
+            System.out.println("Itens da Nota Fiscal: ");
+            System.out.println(atual.getItens().toString());
+            System.out.println("-------------------------------------------");
             atual = atual.getProximo();
         }
     }
