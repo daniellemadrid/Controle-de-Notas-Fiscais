@@ -1,4 +1,3 @@
-import java.util.Calendar;
 
 public class ItemNotaFiscal {
     public ItemNotaFiscal anterior;

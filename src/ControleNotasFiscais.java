@@ -9,7 +9,7 @@ public class ControleNotasFiscais {
 
     public ControleNotasFiscais() {
         try {
-            leitor = new BufferedReader(new FileReader("src/notas_fiscais_01000.csv"));
+            leitor = new BufferedReader(new FileReader("src/notas_fiscais_00100.csv"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,17 +149,6 @@ public class ControleNotasFiscais {
         }
     }
 
-    private double calcularValorTotalNota(NotaFiscal nota) {
-        ListaItemNotaFiscal itens = nota.getItens();
-        double valorTotal = 0;
-        ItemNotaFiscal atual = itens.getInicio();
-        while (atual != null) {
-            valorTotal += atual.getValorTotalItem();
-            atual = atual.proximo;
-        }
-        return valorTotal;
-    }
-
     private void consultaNotaMaisBarata(ListaNotaFiscal lista) {
         NotaFiscal atual = lista.getInicio().getProximo();
         double minValor = Double.MAX_VALUE;
@@ -177,7 +166,16 @@ public class ControleNotasFiscais {
         } else {
             System.out.println("Nenhuma nota fiscal encontrada.");
         }
-
+    }
+    private double calcularValorTotalNota(NotaFiscal nota) {
+        ListaItemNotaFiscal itens = nota.getItens();
+        double valorTotal = 0;
+        ItemNotaFiscal atual = itens.getInicio();
+        while (atual != null) {
+            valorTotal += atual.getValorTotalItem();
+            atual = atual.proximo;
+        }
+        return valorTotal;
     }
 
     private void consultaNotaMaisItens(ListaNotaFiscal lista) {

@@ -14,7 +14,6 @@ public class ListaItemNotaFiscal {
         quantidade++;
     }
 
-
     @Override
     public String toString() {
         String s = "";
